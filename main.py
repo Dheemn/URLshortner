@@ -6,21 +6,6 @@ import codecs
 
 from lib.database import DatabaseManager
 from lib.path import PathManager
-#from web.responses import CommonResponses
-
-#app = Flask(__name__)
-
-
-#@app.route('/<string:link>')
-#def linkUp(link):
-#    return '<h1>Link is %s </h1>' % escape(link)
-
-#@app.route('/new/<path:link>', methods=['POST'])
-#def newLink(link):
-#    return redirect('http://%s'% escape(link), code=302)
-
-#with app.test_request_context():
-#    print(url_for('/new/', next='/'))
 
 
 def create_app():
