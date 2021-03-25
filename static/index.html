@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta name="referrer" content="origin">
+
+		<script type = "text/javascript">
+			function fetchPath(link = '') {
+				const link = String(link);
+				const response = await fetch(
+					"./new/" + link, {
+						method: 'POST',
+						mode: "cors"
+						cache: "no-cache"
+						referrer: "origin-when-cross-origin"
+					}
+				);
+				return response.
+			}
+		</script>
+
+	</head>
+</html>
