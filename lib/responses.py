@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+
+from flask import Response
+
+class CommonResponses():
+
+    def __init__(self):
+        #self.code = code
+        pass
+
+    #Response for 403 forbidden request
+    def forbidden(self):
+        page = open('static/403.html',mode='r').read()
+        #resp = Response(page, status_code=403)
+        return page, 403
+
+    #Response for 400 bad request
+    def bad_request(self):
+        page = open('static/400.html', mode='r').read()
+        return page, 400
+
+    #Response for 404 not found
+    def not_found(self):
+        #pass
+        page = open('static/404.html', mode='r').read()
+        return page, 404
+
+    #Response selector
+    def type(self, code):
+        self.code = str(code)
+        if ( self.code == '404'):
+            return self.not_found()
+        elif ( self.code == '403'):
+            return self.forbidden()
+        elif ( self.code == '400'):
+            return self.bad_request()
+
+
