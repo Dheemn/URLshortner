@@ -4,17 +4,20 @@
 		<meta name="referrer" content="origin">
 
 		<script type = "text/javascript">
-			function fetchPath(link = '') {
+			function fetchPath(link) {
 				const link = String(link);
 				const response = await fetch(
 					"./new/" + link, {
 						method: 'POST',
-						mode: "cors"
-						cache: "no-cache"
-						referrer: "origin-when-cross-origin"
+						mode: "cors",
+						cache: "no-cache",
+						referrerPolicy: 'origin-when-cross-origin',
+						headers: {
+      							'Content-Type': 'application/x-www-form-urlencoded',
+    						}
 					}
 				);
-				return response.
+				return response.text()
 			}
 		</script>
 
