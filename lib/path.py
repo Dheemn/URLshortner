@@ -6,6 +6,7 @@ from lib.responses import CommonResponses
 from random import choice
 from flask import redirect
 
+import re
 import string
 
 class PathManager():
@@ -15,12 +16,18 @@ class PathManager():
     
     def __init__(self, db):
         self._db = db
-        #self._db = DatabaseManager('urlshortner', 'urlshortner', 'testuser')
         self._commonR = CommonResponses()
 
     def _pathGen(self):
         return ''.join(choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for i in range(6))
 
+    def _link_check(self, link):
+        #Regex for this '^http*.\:\/\/'
+        p = re.compile('^http*.\:\/\/')
+        if not p.match(link):
+            return 'http://'+link
+        return link
+    
     def pathAdd(self, link):
         """
         Checks and adds the path
@@ -51,7 +58,7 @@ class PathManager():
             return bResponse
         stat, link = self._db.fetch_link(path)
         if ( stat == True):
-            return redirect(link, 302)
+            return redirect(self._link_check(link), 302)
         else:
             return self._commonR.type('404')
 
