@@ -2,24 +2,39 @@
 <html>
 	<head>
 		<meta name="referrer" content="origin">
-
-		<script type = "text/javascript">
-			function fetchPath(link) {
-				const link = String(link);
-				const response = await fetch(
-					"./new/" + link, {
-						method: 'POST',
-						mode: "cors",
-						cache: "no-cache",
-						referrerPolicy: 'origin-when-cross-origin',
-						headers: {
-      							'Content-Type': 'application/x-www-form-urlencoded',
-    						}
-					}
-				);
-				return response.text()
-			}
-		</script>
-
+		<title>URLshortner-dev</title>
 	</head>
+	<body>
+		<h1>Home for URLshortner</h1>
+		<form id="myForm" action="/new/" method="POST">
+			<label for="url">Enter or copy your link here:</label><br>
+			<input type="url" id="getURL" name="url" ><br><br>
+			<button type="submit" id="submit">Submit</button>
+			<output name="output" id="urlOut">
+		</form>
+
+		<script async>
+			let gU = document.getElementById('myForm');
+			let uO = document.getElementById('urlOut');
+			if (gU) {
+				gU.addEventListener('submit', function(e) {
+					e.preventDefault();
+					var formData = new FormData(this);
+					fetch("./new/", { 
+							method: 'POST',
+							mode: "cors",
+							cache: "no-cache",
+							referrer: "origin-when-cross-origin",
+							body: formData
+					}).then(function (response) {
+						return response.text();
+					}).then(function (text) {
+						uO.value = text;
+					});
+				}, false);
+			} else {
+				alert('gU element is null');
+           		}
+		</script>
+	</body>
 </html>
