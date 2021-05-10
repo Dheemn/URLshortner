@@ -5,12 +5,13 @@ import os
 
 from lib.database import DatabaseManager
 from lib.path import PathManager
+from lib.configparse import ConfigParse
 
+confParse = ConfigParse('postconfig.ini')
+dbDetail = confParse.readDB()
 
 def create_app():
-    postsql = {'dbType': 'postgresql', 'dbName': <Database_name>, 'username': <Database_user>, 'password': <Database_user_password>}
-    sqlite = {'dbType': 'default', 'dbLoc': <Database_Location>}
-    db = DatabaseManager(<postsql/sqlite>)
+    db = DatabaseManager(dbDetail)
     pathM = PathManager(db)
     app = Flask(__name__)
         
