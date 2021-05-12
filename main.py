@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, request
 from markupsafe import escape
 
 import os
@@ -7,26 +7,30 @@ from lib.database import DatabaseManager
 from lib.path import PathManager
 from lib.configparse import ConfigParse
 
-confParse = ConfigParse('postconfig.ini')
+
+confParse = ConfigParse('config.ini')
 dbDetail = confParse.readDB()
+common = confParse.readCommon()
 
 def create_app():
-    db = DatabaseManager(dbDetail)
+    db = DatabaseManager.getDatabase(dbDetail)
     pathM = PathManager(db)
     app = Flask(__name__)
-        
+    
 
     @app.route('/')
     def home():
-        return "<h1>Home</h1>", 200
+        index_page = open('static/index.html', 'r')
+        return index_page.read() , 200
 
     @app.route('/<string:path>')
     def path_en(path):
         rdirect = pathM.fetch(path)
         return rdirect
 
-    @app.route('/new/<string:link>')
-    def new_link(link):
+    @app.route('/new/', methods=['POST'])
+    def new_link():
+        link = request.form['url']
         return pathM.pathAdd(link)
 
     return app
@@ -34,4 +38,4 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.run()
+    app.run(host=common['serverHost'])

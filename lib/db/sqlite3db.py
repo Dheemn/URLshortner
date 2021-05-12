@@ -7,7 +7,7 @@ class SQLite3DB():
     
     def __init__(self, db_path):
         try:
-            self._conn=sqlite3.connect(db_path)
+            self._conn=sqlite3.connect(db_path, check_same_thread=False)
         except:
             print("Error: Unable to connect to SQLite3 database")
             exit()

@@ -5,7 +5,7 @@ import psycopg2
 
 class PostgresDB():
 
-    def __init__(self, database, username, password):
+    def __init__(self, database, username, password, host, port):
         """
         Connects to the database at the start of the class and makes it easy
         all unknown reasons.
@@ -14,7 +14,9 @@ class PostgresDB():
             self._conn = psycopg2.connect(
                     database = database,
                     user = username,
-                    password = password)
+                    password = password
+                    host = host,
+                    port = port)
         except:
             print("Error: Unable to connect to database")
         #pass
@@ -22,7 +24,7 @@ class PostgresDB():
     #Just to check if path exists
     def check_entry(self, path):
         cur = self._conn.cursor()
-        cur.execute("SELECT * FROM test_shortner WHERE path=%s", (path, ))
+        cur.execute("SELECT * FROM urlshortner WHERE path=%s", (path, ))
         if not cur.fetchone():
             cur.close()
             return False
@@ -35,7 +37,7 @@ class PostgresDB():
         try:
             cur = self._conn.cursor()
             dt = datetime.datetime.now()
-            cur.execute("INSERT INTO test_shortner (time, path, link) VALUES(%s,%s,%s)", (dt, path, link))
+            cur.execute("INSERT INTO urlshortner (time, path, link) VALUES(%s,%s,%s)", (dt, path, link))
             self._conn.commit()
             cur.close()
             return True
@@ -51,7 +53,7 @@ class PostgresDB():
         """
         try:
             cur = self._conn.cursor()
-            cur.execute("SELECT link FROM test_shortner WHERE path=%s", (path, ))
+            cur.execute("SELECT link FROM urlshortner WHERE path=%s", (path, ))
             link = cur.fetchone()[0]
             cur.close()
             return True, link
