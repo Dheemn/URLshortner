@@ -40,10 +40,6 @@ class PathManager():
             else:
                 continue
 
-    #Function to restrict length of path to certain characters
-    #def _path_len(self, path):
-    #    if ( len(path) != 6):
-    #        return 403
 
     def fetch(self, path):
         """
