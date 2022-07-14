@@ -1,0 +1,7 @@
+#Ignore these files(in alphabetical order)
+.*
+venv
+
+
+#Don't forget to not ignore this file
+!.gitignore
