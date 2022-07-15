@@ -25,7 +25,7 @@ class PathManager():
 
     def _link_check(self, link):
         # Regex for this '^http*.\:\/\/'
-        p = re.compile('^http*.\:\/\/')
+        p = re.compile(r'^http*.\:\/\/')
         if not p.match(link):
             return 'http://'+link
         return link
