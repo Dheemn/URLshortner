@@ -3,6 +3,7 @@
 import datetime
 import psycopg2
 
+
 class PostgresDB():
 
     def __init__(self, database, username, password, host, port):
@@ -12,16 +13,16 @@ class PostgresDB():
         """
         try:
             self._conn = psycopg2.connect(
-                    database = database,
-                    user = username,
-                    password = password
-                    host = host,
-                    port = port)
+                    database=database,
+                    user=username,
+                    password=password,
+                    host=host,
+                    port=port)
         except:
             print("Error: Unable to connect to database")
-        #pass
+        # pass
 
-    #Just to check if path exists
+    # Just to check if path exists
     def check_entry(self, path):
         cur = self._conn.cursor()
         cur.execute("SELECT * FROM urlshortner WHERE path=%s", (path, ))
@@ -31,8 +32,8 @@ class PostgresDB():
         else:
             cur.close()
             return True
-    
-    #Adds path, link to the database
+
+    # Adds path, link to the database
     def add_path(self, path, link):
         try:
             cur = self._conn.cursor()
@@ -46,7 +47,7 @@ class PostgresDB():
             cur.close()
             print('Error: Failed to write data to table')
 
-    #Returns link for a this path
+    # Returns link for a this path
     def fetch_link(self, path):
         """
         Fetches the link for a particular path
@@ -65,6 +66,6 @@ class PostgresDB():
             cur.close()
             print("Error: Error getting data from database")
 
-    #Automatically delete the conn variable
+    # Automatically delete the conn variable
     def __del__(self):
         self._conn.close()
