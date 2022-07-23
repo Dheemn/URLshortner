@@ -1,7 +1,4 @@
-from flask import Flask, redirect, request
-from markupsafe import escape
-
-import os
+from flask import Flask,  request
 
 from lib.database import DatabaseManager
 from lib.path import PathManager
@@ -12,16 +9,16 @@ confParse = ConfigParse('config.ini')
 dbDetail = confParse.readDB()
 common = confParse.readCommon()
 
+
 def create_app():
     db = DatabaseManager.getDatabase(dbDetail)
     pathM = PathManager(db)
     app = Flask(__name__)
-    
 
     @app.route('/')
     def home():
         index_page = open('static/index.html', 'r')
-        return index_page.read() , 200
+        return index_page.read(), 200
 
     @app.route('/<string:path>')
     def path_en(path):
