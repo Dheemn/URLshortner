@@ -1,7 +1,7 @@
 #Ignore these files(in alphabetical order)
 .*
+test.py
 venv
-
 
 #Don't forget to not ignore this file
 !.gitignore
