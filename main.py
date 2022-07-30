@@ -5,30 +5,33 @@ from lib.path import PathManager
 from lib.configparse import ConfigParse
 
 
-confParse = ConfigParse('config.ini')
-dbDetail = confParse.readDB()
-common = confParse.readCommon()
+config_parse = ConfigParse('config.ini')
+db_detail = config_parse.readDB()
+common = config_parse.readCommon()
 
 
 def create_app():
-    db = DatabaseManager.getDatabase(dbDetail)
-    pathM = PathManager(db)
+    db_object = DatabaseManager.getDatabase(db_detail)
+    path_manager = PathManager(db_object)
     app = Flask(__name__)
 
     @app.route('/')
     def home():
-        index_page = open('static/index.html', 'r')
+        index_page = open(
+                        'static/index.html',
+                        'r',
+                        encoding='utf-8')
         return index_page.read(), 200
 
     @app.route('/<string:path>')
     def path_en(path):
-        rdirect = pathM.fetch(path)
+        rdirect = path_manager.fetch(path)
         return rdirect
 
     @app.route('/new/', methods=['POST'])
     def new_link():
         link = request.form['url']
-        return pathM.pathAdd(link)
+        return path_manager.pathAdd(link)
 
     return app
 

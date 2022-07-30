@@ -3,21 +3,37 @@
 import configparser
 import getpass
 import os
+import sqlite3
 import sys
 
+import psycopg2
 
-def configWrite(common, dbdetails):
-    configP = configparser.ConfigParser()
-    configP['Common'] = common
-    configP['DATABASE'] = dbdetails
-    with open('config.ini', 'w') as configFile:
-        configP.write(configFile)
+
+def config_write(common, db_details) -> None:
+    """
+    The config_write method writes the general details such as hosting and
+    database details
+    @params:\n
+    common - contains the server accessiblity such as whether its on localhost
+                etc
+    db_details - contains all the database details such as its location, port
+                number, etc
+    """
+    config_parser = configparser.ConfigParser()
+    config_parser['Common'] = common
+    config_parser['DATABASE'] = db_details
+    with open('config.ini', 'w', encoding='utf-8') as config_file:
+        config_parser.write(config_file)
 
 
 def main():
+    """
+    The main function
+    @params:
+    None
+    """
     choice = sys.argv[1]
     if (choice == 1):
-        import psycopg2
         host = str(input("Should the 1)server be hosted public facing(0.0.0" +
                          ".0) or 2)server should be hosted locally" +
                          "(localhost): "))
@@ -42,7 +58,7 @@ def main():
             uname = getpass.getuser()
 
         common = {'host': host}
-        dbDetails = {'dbType': 'postgresql',
+        db_details = {'dbType': 'postgresql',
                      'dbName': dbname,
                      'username': uname,
                      'password': password,
@@ -63,10 +79,9 @@ def main():
         cur.close()
         conn.close()
         print("[+]Writing to config file....")
-        configWrite(common, dbDetails)
+        config_write(common, db_details)
         print("[+]Done writing to config file")
     elif (choice == 2):
-        import sqlite3
         host = str(input("Should the 1)server be hosted public facing(0.0.0" +
                          ".0) or 2)server should be hosted locally" +
                          "(localhost): "))
@@ -82,16 +97,16 @@ def main():
             dbname = dbname+'.db'
 
         if (getpass.getuser() == 'root'):
-            dbLoc = "/root/.config/urlshortner/" + dbname
+            db_location = "/root/.config/urlshortner/" + dbname
         else:
-            userName = getpass.getuser()
-            dbLoc = "/home/"+userName+"/.config/"+dbname
+            username = getpass.getuser()
+            db_location = "/home/"+username+"/.config/"+dbname
 
         common = {'host': host}
-        dbDetails = {'dbType': 'sqlite',
-                     'dbLoc': dbLoc}
+        db_details = {'dbType': 'sqlite',
+                     'dbLoc': db_location}
 
-        conn = sqlite3.connect(dbLoc)
+        conn = sqlite3.connect(db_location)
         cur = conn.cursor()
         cur.execute("create table urlshorter(time TEXT, path varchar(6)" +
                     "primary key, link TEXT);")
@@ -99,7 +114,7 @@ def main():
         cur.close()
         conn.close()
         print("[+]Writing configuration to config file...")
-        configWrite(common, dbDetails)
+        config_write(common, db_details)
         print("[+]Done...!!")
 
 
