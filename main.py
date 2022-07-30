@@ -32,7 +32,7 @@ def create_app():
     @app.route('/new/', methods=['POST'])
     def new_link():
         link = request.form['url']
-        return path_manager.pathAdd(link)
+        return path_manager.path_add(link)
 
     return app
 
