@@ -58,12 +58,14 @@ def main():
             uname = getpass.getuser()
 
         common = {'host': host}
-        db_details = {'dbType': 'postgresql',
-                      'dbName': dbname,
-                      'username': uname,
-                      'password': password,
-                      'host': dbhost,
-                      'port': dbport}
+        db_details = {
+            'dbType': 'postgresql',
+            'dbName': dbname,
+            'username': uname,
+            'password': password,
+            'host': dbhost,
+            'port': dbport,
+        }
 
         os.system(f"sudo -u postgres psql -c 'create database {dbname}'")
         os.system(f"sudo -u postgres psql -c 'create user {uname} with" +
@@ -103,8 +105,10 @@ def main():
             db_location = "/home/"+username+"/.config/"+dbname
 
         common = {'host': host}
-        db_details = {'dbType': 'sqlite',
-                      'dbLoc': db_location}
+        db_details = {
+            'dbType': 'sqlite',
+            'dbLoc': db_location,
+        }
 
         conn = sqlite3.connect(db_location)
         cur = conn.cursor()

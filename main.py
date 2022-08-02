@@ -7,8 +7,8 @@ import lib.database
 
 
 config_parse = ConfigParse('config.ini')
-db_detail = config_parse.readDB()
-common = config_parse.readCommon()
+db_detail = config_parse.read_database()
+common = config_parse.read_common()
 
 
 def create_app():

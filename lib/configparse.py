@@ -1,30 +1,38 @@
 
 import configparser
+from typing import (
+    Dict,
+    Optional,
+)
 
 
 class ConfigParse():
 
-    def __init__(self, configPath):
-        self._cP = configparser.ConfigParser()
-        self._cP.read(configPath)
+    def __init__(self, config_path) -> object:
+        self._config_parser = configparser.ConfigParser()
+        self._config_parser.read(config_path)
 
-    def readDB(self):
+    def read_database(self) -> Dict[str, str, Optional[str], Optional[str]]:
         # Parses the config file for database and returns as a dictionary
-        db = self._cP['DATABASE']
-        dbType = db['dbType']
-        if (dbType == 'postgresql'):
-            dbDetails = {'dbType': dbType,
-                         'dbName': db['dbName'],
-                         'username': db['username'],
-                         'password': db['password']}
-            return dbDetails
-        elif (dbType == 'sqlite'):
-            dbDetails = {'dbType': dbType,
-                         'dbLoc': db['dbLoc']}
-            return dbDetails
+        database = self._config_parser['DATABASE']
+        db_type = database['dbType']
+        if db_type == 'postgresql':
+            db_details = {
+                'dbType': db_type,
+                'dbName': database['dbName'],
+                'username': database['username'],
+                'password': database['password'],
+            }
+            return db_details
+        elif db_type == 'sqlite':
+            db_details = {
+                'dbType': db_type,
+                'dbLoc': database['dbLoc'],
+            }
+            return db_details
 
-    def readCommon(self):
+    def read_common(self) -> Dict[str]:
         # Parses the config file for common configurations
-        common = self._cP['Common']
-        cDetails = {'serverHost': common['host']}
-        return cDetails
+        common = self._config_parser['Common']
+        common_details = {'serverHost': common['host']}
+        return common_details

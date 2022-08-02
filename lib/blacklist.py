@@ -2,6 +2,7 @@
 
 from lib.responses import CommonResponses
 
+
 # This gives the list of blacklisted paths(temporary just to get the
 # app working)
 class Blacklist():
