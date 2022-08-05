@@ -5,5 +5,8 @@ config.ini
 test.py
 venv
 
+#This ignores the pycache files
+__pycache__
+
 #Don't forget to not ignore this file
 !.gitignore
