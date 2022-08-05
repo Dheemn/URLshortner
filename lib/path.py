@@ -20,18 +20,18 @@ class PathManager():
         self._db = database_object
         self._common_responses = CommonResponses()
 
-    def _path_gen(self):
+    def _path_gen(self) -> str:
         return ''.join(choice(string.ascii_uppercase + string.ascii_lowercase
                               + string.digits) for i in range(6))
 
-    def _link_check(self, link):
+    def _link_check(self, link) -> str:
         # Regex for this '^http*.\:\/\/'
         regex_check = re.compile(r'^http*.\:\/\/')
         if not regex_check.match(link):
             return 'http://'+link
         return link
 
-    def path_add(self, link):
+    def path_add(self, link) -> str:
         """
         Checks and adds the path
         """
@@ -42,7 +42,7 @@ class PathManager():
                 return path
             continue
 
-    def fetch(self, path):
+    def fetch(self, path) -> str:
         """
         Fetch the link for path
         @params:
