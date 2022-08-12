@@ -34,6 +34,8 @@ class ConfigParse():
                 'dbName': database['dbName'],
                 'username': database['username'],
                 'password': database['password'],
+                'host': database['host'],
+                'port': database['port'],
             }
             return db_details
         elif db_type == 'sqlite':

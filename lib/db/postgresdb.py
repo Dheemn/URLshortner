@@ -7,7 +7,14 @@ from typing import Tuple
 
 class PostgresDB():
 
-    def __init__(self, database, username, password, host, port) -> object:
+    def __init__(
+            self,
+            database,
+            username,
+            password,
+            host='localhost',
+            port='5432',
+    ) -> object:
         """
         Connects to the database at the start of the class and makes it easy
         all unknown reasons.
@@ -19,7 +26,7 @@ class PostgresDB():
                     password=password,
                     host=host,
                     port=port)
-        except psycopg2.Error:
+        except psycopg2.OperationalError:
             print("Error: Unable to connect to database")
         # pass
 
@@ -69,4 +76,5 @@ class PostgresDB():
 
     # Automatically delete the conn variable
     def __del__(self) -> None:
-        self._conn.close()
+        if 'self._conn' in locals():
+            self._conn.close()
