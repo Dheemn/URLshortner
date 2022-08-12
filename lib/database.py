@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
+from typing import Dict
 from lib.db.postgresdb import PostgresDB
 from lib.db.sqlite3db import SQLite3DB
 
 
-def get_database(db_details) -> object:
+def get_database(db_details: Dict[str, str]) -> object:
     """
     Takes the database details and returns the database object
     """
