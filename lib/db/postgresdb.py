@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import datetime
-import psycopg2
 from typing import Tuple
+import psycopg2
 
 
 class PostgresDB():
