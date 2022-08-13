@@ -12,6 +12,7 @@ class PostgresDB():
             database,
             username,
             password,
+            *,
             host='localhost',
             port='5432',
     ) -> object:
@@ -54,6 +55,7 @@ class PostgresDB():
             self._conn.rollback()
             cur.close()
             print('Error: Failed to write data to table')
+            return False, ''
 
     # Returns link for a this path
     def fetch_link(self, path) -> Tuple[bool, str]:
@@ -73,6 +75,7 @@ class PostgresDB():
             self._conn.rollback()
             cur.close()
             print("Error: Error getting data from database")
+            return False, ''
 
     # Automatically delete the conn variable
     def __del__(self) -> None:
