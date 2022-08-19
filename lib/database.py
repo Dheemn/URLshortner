@@ -13,9 +13,9 @@ def get_database(db_details: Dict[str, str]) -> object:
         return SQLite3DB(db_details["dbLoc"])
     elif db_details["dbType"] == "postgresql":
         return PostgresDB(
-            db_details["dbName"],
-            db_details["username"],
-            db_details["password"],
-            db_details["host"],
-            db_details["port"],
+            database=db_details["dbName"],
+            username=db_details["username"],
+            password=db_details["password"],
+            host=db_details["host"],
+            port=db_details["port"],
         )
