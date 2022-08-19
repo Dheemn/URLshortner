@@ -14,7 +14,7 @@ class SQLite3DB():
 
     db_path: string - path to the SQLite database file
     """
-    def __init__(self, db_path):
+    def __init__(self, db_path: str):
         try:
             self._conn = sqlite3.connect(db_path, check_same_thread=False)
         except sqlite3.Error:
@@ -22,7 +22,7 @@ class SQLite3DB():
             exit()
 
     # Check's if the path exists
-    def check_entry(self, path) -> bool:
+    def check_entry(self, path: str) -> bool:
         """
         Checks if the shortlink already exists in the database
 
@@ -41,7 +41,11 @@ class SQLite3DB():
             return True
 
     # Adds path, link to the database
-    def add_path(self, path, link) -> bool:
+    def add_path(
+        self,
+        path: str,
+        link: str
+    ) -> bool:
         """
         This method adds the path, link(URL) to the database
 
@@ -57,13 +61,14 @@ class SQLite3DB():
             self._conn.commit()
             cur.close()
             return True
-        except sqlite3.Error as e:
+        except sqlite3.Error as error:
             self._conn.rollback()
             cur.close()
-            print(f'Error: Failed to write data to table\n{e}')
+            print(f'Error: Failed to write data to table\n{error}')
+            return False
 
     # Returns link for a this path
-    def fetch_link(self, path) -> Tuple[bool, str]:
+    def fetch_link(self, path: str) -> Tuple[bool, str]:
         """
         Fetches the link for a particular path
         """
@@ -80,6 +85,7 @@ class SQLite3DB():
             self._conn.rollback()
             cur.close()
             print("Error: Error getting data from database")
+            return False, ''
 
     # Closes the connection
     def __del__(self) -> None:

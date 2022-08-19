@@ -14,7 +14,7 @@ class ConfigParse():
             It won't be recognized and the methods will return None
     """
 
-    def __init__(self, config_path):
+    def __init__(self, config_path: str):
         self._config_parser = configparser.ConfigParser()
         self._config_parser.read(config_path)
 

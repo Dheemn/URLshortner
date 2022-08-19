@@ -14,9 +14,9 @@ common = config_parse.read_common()
 def create_app():
     db_object = lib.database.get_database(db_detail)
     path_manager = PathManager(db_object)
-    app = Flask(__name__)
+    flask_app = Flask(__name__)
 
-    @app.route('/')
+    @flask_app.route('/')
     def home():
         index_page = open(
                         'static/index.html',
@@ -24,17 +24,17 @@ def create_app():
                         encoding='utf-8')
         return index_page.read(), 200
 
-    @app.route('/<string:path>')
+    @flask_app.route('/<string:path>')
     def path_en(path):
         rdirect = path_manager.fetch(path)
         return rdirect
 
-    @app.route('/new/', methods=['POST'])
+    @flask_app.route('/new/', methods=['POST'])
     def new_link():
         link = request.form['url']
         return path_manager.path_add(link)
 
-    return app
+    return flask_app
 
 
 if __name__ == "__main__":

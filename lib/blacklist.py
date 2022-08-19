@@ -13,8 +13,8 @@ class Blacklist():
                 ]
         self._common_response = CommonResponses()
 
-    def hole(self, path):
-        path = "/"+path
+    def hole(self, path: str):
+        path = "/" + path
         for i in self._blacklist:
             if i == path:
                 return self._common_response.type('403')

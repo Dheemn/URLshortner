@@ -7,7 +7,6 @@ from random import choice
 from flask import redirect
 
 from lib.blacklist import Blacklist
-# from lib.database import DatabaseManager
 from lib.responses import CommonResponses
 
 
@@ -24,14 +23,14 @@ class PathManager():
         return ''.join(choice(string.ascii_uppercase + string.ascii_lowercase
                               + string.digits) for i in range(6))
 
-    def _link_check(self, link) -> str:
+    def _link_check(self, link: str) -> str:
         # Regex for this '^http*.\:\/\/'
         regex_check = re.compile(r'^http*.\:\/\/')
         if not regex_check.match(link):
             return 'http://'+link
         return link
 
-    def path_add(self, link) -> str:
+    def path_add(self, link: str) -> str:
         """
         Checks and adds the path
         """
@@ -42,7 +41,7 @@ class PathManager():
                 return path
             continue
 
-    def fetch(self, path) -> str:
+    def fetch(self, path: str) -> str:
         """
         Fetch the link for path
         @params:

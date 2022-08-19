@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import datetime
-from typing import Tuple
+from typing import Optional, Tuple
 import psycopg2
 
 
@@ -9,12 +9,12 @@ class PostgresDB():
 
     def __init__(
             self,
-            database,
-            username,
-            password,
+            database: str,
+            username: str,
+            password: str,
             *,
-            host='localhost',
-            port='5432',
+            host: Optional[str]='localhost',
+            port: Optional[str]='5432',
     ) -> object:
         """
         Connects to the database at the start of the class and makes it easy
@@ -32,7 +32,7 @@ class PostgresDB():
         # pass
 
     # Just to check if path exists
-    def check_entry(self, path) -> bool:
+    def check_entry(self, path: str) -> bool:
         cur = self._conn.cursor()
         cur.execute(f"SELECT * FROM urlshortner WHERE path={path}")
         if not cur.fetchone():
@@ -42,7 +42,11 @@ class PostgresDB():
         return True
 
     # Adds path, link to the database
-    def add_path(self, path, link) -> bool:
+    def add_path(
+        self,
+        path: str,
+        link: str
+    ) -> bool:
         try:
             cur = self._conn.cursor()
             date = datetime.datetime.now()
@@ -58,7 +62,7 @@ class PostgresDB():
             return False, ''
 
     # Returns link for a this path
-    def fetch_link(self, path) -> Tuple[bool, str]:
+    def fetch_link(self, path: str) -> Tuple[bool, str]:
         """
         Fetches the link for a particular path
         """
