@@ -13,8 +13,8 @@ class PostgresDB():
             username: str,
             password: str,
             *,
-            host: Optional[str]='localhost',
-            port: Optional[str]='5432',
+            host: Optional[str] = 'localhost',
+            port: Optional[str] = '5432',
     ) -> object:
         """
         Connects to the database at the start of the class and makes it easy
