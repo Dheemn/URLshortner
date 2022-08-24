@@ -32,7 +32,7 @@ class SQLite3DB():
                             (not to be confused with an URL)
         """
         cur = self._conn.cursor()
-        cur.execute("SELECT * FROM urlshortner WHERE path=(?)", (path, ))
+        cur.execute(f"SELECT * FROM urlshortner WHERE path='{path}';")
         if not cur.fetchone():
             cur.close()
             return False
@@ -57,7 +57,7 @@ class SQLite3DB():
             cur = self._conn.cursor()
             cur_date_time = datetime.datetime.now()
             cur.execute("INSERT INTO urlshortner (time, path, link) " +
-                        f"VALUES({cur_date_time},{path},{link})")
+                        f"VALUES('{cur_date_time}','{path}','{link}');")
             self._conn.commit()
             cur.close()
             return True
@@ -74,7 +74,7 @@ class SQLite3DB():
         """
         try:
             cur = self._conn.cursor()
-            cur.execute(f"SELECT link FROM urlshortner WHERE path=({path})")
+            cur.execute(f"SELECT link FROM urlshortner WHERE path=('{path}');")
             link = cur.fetchone()[0]
             cur.close()
             return True, link
