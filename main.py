@@ -1,9 +1,9 @@
 from flask import Flask,  request
 
-from lib.path import PathManager
-from lib.configparse import ConfigParse
+from src.path import PathManager
+from src.configparse import ConfigParse
 
-import lib.database
+import src.database
 
 
 config_parse = ConfigParse('config.ini')
@@ -12,7 +12,7 @@ common = config_parse.read_common()
 
 
 def create_app():
-    db_object = lib.database.get_database(db_detail)
+    db_object = src.database.get_database(db_detail)
     path_manager = PathManager(db_object)
     flask_app = Flask(__name__)
 

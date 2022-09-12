@@ -6,8 +6,8 @@ from random import choice
 
 from flask import redirect
 
-from lib.blacklist import Blacklist
-from lib.responses import CommonResponses
+from src.blacklist import Blacklist
+from src.responses import CommonResponses
 
 
 class PathManager():

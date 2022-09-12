@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from lib.responses import CommonResponses
+from src.responses import CommonResponses
 
 
 # This gives the list of blacklisted paths(temporary just to get the
