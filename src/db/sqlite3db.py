@@ -17,6 +17,12 @@ class SQLite3DB():
     def __init__(self, db_path: str):
         try:
             self._conn = sqlite3.connect(db_path, check_same_thread=False)
+            if db_path == ':memory:':
+                self._cur = self._conn.cursor()
+                self._cur.execute("create table urlshorter(time TEXT, path " +
+                                  "varchar(6) primary key, link TEXT);")
+                self._conn.commit()
+                self._cur.close()
         except sqlite3.Error:
             print("Error: Unable to connect to SQLite3 database")
             exit()
