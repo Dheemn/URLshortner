@@ -3,19 +3,39 @@
 	<head>
 		<meta name="referrer" content="origin">
 		<title>URLshortner-dev</title>
+		<style>
+			h1 {
+				position: relative;
+				left: 500px;
+			}
+
+			label {
+				position: relative;
+				left: 43%;
+			}
+
+			.url-getters {
+				position: relative;
+				left: 43%;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Home for URLshortner</h1>
 		<form id="myForm" action="/new/" method="POST">
 			<label for="url">Enter or copy your link here:</label><br>
-			<input type="url" id="getURL" name="url" ><br><br>
-			<button type="submit" id="submit">Submit</button>
-			<output name="output" id="urlOut"></output>
+			<input type="url" id="getURL" name="url"
+				class="url-getters"><br><br>
+			<button type="submit" id="submit">Submit</button><br>
+			<output name="output" id="urlOut"></output><br><br>
 		</form>
+		<button type="button" id="copy_clipboard" 
+			value="Copy to Clipboard">Copy to Clipboard</button>
 
 		<script async>
 			let gU = document.getElementById('myForm');
 			let uO = document.getElementById('urlOut');
+			let cC = document.getElementById('copy_clipboard');
 			if (gU) {
 				gU.addEventListener('submit', function(e) {
 					e.preventDefault();
@@ -29,12 +49,20 @@
 					}).then(function (response) {
 						return response.text();
 					}).then(function (text) {
-						uO.value = text;
+						uO.value = 'localhost:5000/' + text;
 					});
 				}, false);
 			} else {
 				alert('gU element is null');
-           		}
+           	}
+
+			cC.onclick = (event) => {
+				navigator.clipboard.writeText(
+					uO.value
+				);
+				cC.value = "Copied!";
+				cC.innerHTML = "Copied!";
+			}
 		</script>
 	</body>
 </html>
