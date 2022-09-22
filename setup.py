@@ -26,6 +26,18 @@ def config_write(common, db_details) -> None:
         config_parser.write(config_file)
 
 
+def set_dbpath(db_name: str = 'database') -> str:
+    if(sys.platform == 'win32'):
+        db_path = f'.\\{db_name}.db'
+    else:
+        if (getpass.getuser() == 'root'):
+            db_path = "/root/.config/urlshortner/" + db_name
+        else:
+            username = getpass.getuser()
+            db_path = "/home/"+username+"/.config/"+db_name
+    return db_path
+
+
 def main():
     """
     The main function
@@ -93,16 +105,8 @@ def main():
             host = 'localhost'
         dbname = str(input("Enter the name of the database you want to give." +
                            "Press ENTER for default(Default is database): "))
-        if not dbname:
-            dbname = "database.db"
-        else:
-            dbname = dbname+'.db'
 
-        if (getpass.getuser() == 'root'):
-            db_location = "/root/.config/urlshortner/" + dbname
-        else:
-            username = getpass.getuser()
-            db_location = "/home/"+username+"/.config/"+dbname
+        db_location = set_dbpath(db_name=dbname)
 
         common = {'host': host}
         db_details = {
