@@ -1,68 +1,238 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<meta name="referrer" content="origin">
-		<title>URLshortner-dev</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>URLshortner</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+			crossorigin="anonymous"
+		/>
+		<!-- href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" -->
+		<link
+			rel="stylesheet"
+			href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"
+		/>
 		<style>
-			h1 {
+			.wrapper {
+				background: #fff;
+				padding: 20px;
+				width: 800px;
+				border-radius: 5px;
+				box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+				margin-left: 300px;
+				margin-top: 70px;
+			}
+			.wrapper form {
+				height: 50px;
+				width: 100%;
+				display: flex;
 				position: relative;
-				left: 500px;
+				align-items: center;
+			}
+			form input {
+				height: 100%;
+				width: 100%;
+				outline: none;
+				padding: 0 120px 0 45px;
+				font-size: 20px;
+				caret-color: #20b2aa;
+				border: 2px solid #ddd;
+				border-radius: 5px;
+				transition: all 0.1s ease;
+			}
+			form .url-icon {
+				position: absolute;
+				width: 50px;
+				text-align: center;
+				font-size: 23px;
+				color: #c4c4c4;
+				pointer-events: none;
 			}
 
-			label {
-				position: relative;
-				left: 43%;
+			form input:valid {
+				border-color: #20b2aa;
 			}
 
-			.url-getters {
-				position: relative;
-				left: 43%;
+			form input::placeholder {
+				color: #c4c4c4;
 			}
+
+			form input:focus::placeholder {
+				color: #d9d9d9;
+			}
+
+			form button {
+				position: absolute;
+				right: 6px;
+				padding: 5px 15px;
+				font-size: 18px;
+				border-radius: 5px;
+				border: none;
+				outline: none;
+				background: #288d88;
+				color: #fff;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			form button:hover {
+				background: #126460;
+			}
+			.cc {
+				position: absolute;
+				margin-left: 600px;
+				padding: 5px 10px;
+				font-size: 15px;
+				border-radius: 5px;
+				background: #288d88;
+				color: #fff;
+				border-color: white;
+			}
+
+			.lil {
+				margin-top: 280px;
+			}
+
+			p {
+				margin-left: 600px;
+			}
+
+			form output {
+				position: absolute;
+				right: 500px;
+			}
+
+			/* .div-about {
+
+                align-content: center;
+            } */
 		</style>
 	</head>
 	<body>
-		<h1>Home for URLshortner</h1>
-		<form id="myForm" action="/new/" method="POST">
-			<label for="url">Enter or copy your link here:</label><br>
-			<input type="url" id="getURL" name="url"
-				class="url-getters"><br><br>
-			<button type="submit" id="submit">Submit</button><br>
-			<output name="output" id="urlOut"></output><br><br>
-		</form>
-		<button type="button" id="copy_clipboard" 
-			value="Copy to Clipboard">Copy to Clipboard</button>
-
+		<nav class="navbar navbar-expand-lg bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand text-light" href="#">URLshortner</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div
+					class="collapse navbar-collapse"
+					id="navbarSupportedContent"
+				>
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a
+								class="nav-link active text-light"
+								aria-current="page"
+								href="#"
+								>Home</a
+							>
+						</li>
+						<!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li> -->
+						<li class="nav-item">
+							<a
+								class="nav-link active text-light"
+								aria-current="page"
+								href="#"
+								>About</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<h1 class="text-center my-4">Home for URLshortner</h1>
+		<div class="wrapper">
+			<form id="myForm" action="/new/" method="POST">
+				<i class="url-icon uil uil-link"></i>
+				<!-- <label for="url">Enter or copy your link here:</label><br /> -->
+				<input
+					type="url"
+					id="getURL"
+					name="url"
+					placeholder="Enter or paste a long url"
+				/><br /><br />
+				<button type="submit" id="submit">Submit</button><br />
+			</form>
+			<output name="output m-4" id="urlOut"></output><br /><br />
+		</div>
+		<button
+			type="button "
+			id="copy_clipboard"
+			class="cc my-4"
+			value="Copy to Clipboard"
+		>
+			Copy to Clipboard
+		</button>
+		<!-- <div class="div-about">
+        <p>
+            About<br />
+            This project demonstrates the functionality of URLshortner. 
+        </p>
+    </div> -->
+		<nav class="navbar navbar-expand-lg bg-dark text-center lil">
+			<p class="text-center text-light">Home for URLshortner</p>
+		</nav>
 		<script async>
-			let gU = document.getElementById('myForm');
-			let uO = document.getElementById('urlOut');
-			let cC = document.getElementById('copy_clipboard');
+			let gU = document.getElementById("myForm");
+			let uO = document.getElementById("urlOut");
+			let cC = document.getElementById("copy_clipboard");
 			if (gU) {
-				gU.addEventListener('submit', function(e) {
-					e.preventDefault();
-					var formData = new FormData(this);
-					fetch("./new/", { 
-							method: 'POST',
+				gU.addEventListener(
+					"submit",
+					function (e) {
+						e.preventDefault();
+						var formData = new FormData(this);
+						fetch("./new/", {
+							method: "POST",
 							mode: "cors",
 							cache: "no-cache",
 							referrer: "origin-when-cross-origin",
-							body: formData
-					}).then(function (response) {
-						return response.text();
-					}).then(function (text) {
-						uO.value = 'localhost:5000/' + text;
-					});
-				}, false);
+							body: formData,
+						})
+						.then(function (response) {
+							return response.text();
+						})
+						.then(function (text) {
+							uO.value = "localhost:5000/" + text;
+						});
+					},
+					false
+				);
 			} else {
-				alert('gU element is null');
-           	}
+				alert("gU element is null");
+			}
 
 			cC.onclick = (event) => {
-				navigator.clipboard.writeText(
-					uO.value
-				);
-				cC.value = "Copied!";
+				navigator.clipboard.writeText(uO.value);
 				cC.innerHTML = "Copied!";
-			}
+			};
 		</script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+			crossorigin="anonymous"
+		></script>
 	</body>
 </html>
